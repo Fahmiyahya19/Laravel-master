@@ -30,24 +30,12 @@
               <input type="text" name="user_id" id="user_id" class="form-control" value="{{ $data->user_id }}">
             </div>
             <div class="form-group">
-                <label for="game" class="text-dark">Game</label><br>
-                <select class="form-control" id="select" name="game" value="{{ $data->game }}">
-                    <option></option>
-                    <option>PUBG</option>
-                    <option>Valorant</option>
-                    <option>Genshin Impact</option>
-                </select>
+                <label for="game" class="text-dark">Game (Valorant, PUBG, Genshin Impact)</label><br>
+                <input type="text" name="game" id="game" class="form-control" value="{{ $data->game }}">
               </div>
               <div class="form-group">
-                <label for="value" class="text-dark">Value</label><br>
-                <select class="form-control" id="select1" name="value" value="{{ $data->value }}">
-                    <option></option>
-                    <option>$0,99</option>
-                    <option>$4,99</option>
-                    <option>$9,99</option>
-                    <option>$14,99</option>
-                    <option>$99,99</option>
-                  </select>
+                <label for="value" class="text-dark">Value($)</label><br>
+                <input type="text" name="value" id="value" class="form-control" value="{{ '$'.$data->value }}">
               </div>
             <div class="form-group d-flex justify-content-center">
               <br>

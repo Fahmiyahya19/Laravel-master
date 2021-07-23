@@ -1,6 +1,6 @@
 <header>
     <nav class="navbar bg-cyan navbar-expand-md fixed-top">
-        <a class="navbar-brand font-weight-light" href="/"><img src="img/logo.png" alt="" width="50px" class="left"></a>
+        <a class="navbar-brand font-weight-light" href="/"><img src="{{ url('img/logo.png') }}" alt="" width="50px" class="left"></a>
         <button class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target">
           <span class="navbar-toggler-icon"></span>
         </button>
