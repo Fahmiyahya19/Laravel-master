@@ -7,7 +7,7 @@
 <br>
 
 <div class="container my-5">
-    <div class="table-responsive">
+    <div class="table">
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
@@ -44,7 +44,7 @@
                         <th>User_id</th>
                         <th>Game</th>
                         <th>Value</th>
-                        <th>Action</th>
+                        <th width="300px">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,6 +67,8 @@
 <br>
 
 @endsection
+
+
 @section('js')
     <script>
         $(function(){
@@ -79,7 +81,6 @@
                 reponsive:true,
                 jQueryUI: true,
                 processing: true,
-                scrollX: true,
                 ajax: '<?= route('cartdata') ?>',
                 columns:[
                     {data: 'id', name: 'id'},

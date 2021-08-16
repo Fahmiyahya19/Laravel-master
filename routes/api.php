@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartApiController;
 use Illuminate\Http\Request;
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +20,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('carts',[CartApiController::class, 'api_data']);
-Route::get('carts/{id?}',[CartApiController::class, 'api_id_data']);
-Route::post('carts',[CartApiController::class, 'api_store']);
+
+Route::post('login',[AuthController::class, 'loginApi'])->name('api-login');
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('carts',[CartApiController::class, 'cart_data']);
+    Route::get('carts/{id}',[CartApiController::class, 'cart_id_data']);
+    Route::put('carts/{id}',[CartApiController::class,'cart_update']);
+    Route::delete('carts/{id}',[CartApiController::class,'cart_delete']);
+    Route::post('carts',[CartApiController::class, 'cart_store']);
+});

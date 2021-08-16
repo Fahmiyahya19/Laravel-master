@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -42,6 +43,34 @@ class AuthController extends Controller
             return redirect()->route('login');
         }
 
+    }
+
+    public function loginApi(Request $request){
+        $validator = Validator::make($request->only('email','password'),[
+            'email'     => 'required|email',
+            'password'  => 'required'
+        ]);
+        
+        if ($validator->fails()){
+            return response()->json($validator->errors(),400);
+        }
+
+        Auth::attempt($request->only('email', 'password'));
+
+        if(!Auth::check()){
+            $response = [
+                "message" => "Wrong input Email or Password"
+            ];
+            return response()->json($response, 400);
+        }
+        if(Auth::check()){
+            $token = Str::random(128);
+            $response = [
+                "message"   => "Login Success",
+                "api_token" => $token
+            ];
+            return response()->json($response, 200);
+        }
     }
 
     public function showFormRegister()
