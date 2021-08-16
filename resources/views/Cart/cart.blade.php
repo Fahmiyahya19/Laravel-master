@@ -36,9 +36,10 @@
                 </button>
             </div>
             @endif
-            <table class="table table-bordered my-3">
+            <table width="100%" id="table" class="table table-bordered table-consoned table-striped my-3">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Username</th>
                         <th>User_id</th>
                         <th>Game</th>
@@ -47,18 +48,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($cartdata as $item)
-                    <tr>
-                        <td>{{ $item->username }}</td>
-                        <td>{{ $item->user_id }}</td>
-                        <td>{{ $item->game }}</td>
-                        <td>{{ $item->value }}</td>
-                        <td>
-                            <a href="{{ url('cartedit',$item->id) }}" class="btn btn-warning">Edit</a>
-                            <a href="{{ route('cartdelete',$item->id) }}" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                    @endforeach
+                    
                 </tbody>
             </table>
         </div>
@@ -76,4 +66,35 @@
 <br>
 <br>
 
+@endsection
+@section('js')
+    <script>
+        $(function(){
+            datatable();
+        });
+
+        var dataTable;
+        function datatable(){
+            dataTable =  $('#table').DataTable({
+                reponsive:true,
+                jQueryUI: true,
+                processing: true,
+                scrollX: true,
+                ajax: '<?= route('cartdata') ?>',
+                columns:[
+                    {data: 'id', name: 'id'},
+                    {data: 'username', name: 'username'},
+                    {data: 'user_id', name: 'user_id'},
+                    {data: 'game', name: 'game'},
+                    {data: 'value', name: 'value'},
+                    {data: 'id', name:'users.id', searchable: false, orderable: false, class: 'text-center nowrap',mRender: function(data){
+                        return '<button id="btn-view" type="button" class="btn btn-info btn-sm" onclick="view('+data+')">View</button>\n\
+                                <button id="btn-edit" type="button" class="btn btn-warning btn-sm" onclick="edit('+data+')">Edit</button>\n\
+                                <button id="btn-reset" type="button" class="btn btn-primary btn-sm" onclick="resetPassword('+data+')">Reset Password</button>\n\
+                                <button type="button" class="btn btn-danger btn-sm" onclick="destroy('+data+')">Delete</button>';
+                    }}
+                ]
+            });
+        }
+    </script>
 @endsection

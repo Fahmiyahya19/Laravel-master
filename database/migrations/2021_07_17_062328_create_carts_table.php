@@ -17,7 +17,7 @@ class CreateCartsTable extends Migration
             $table->id();
             $table->string('username');
             $table->string('user_id');
-            $table->string('game');
+            $table->enum('game',['PUBG,Valorant,Genshin Impact']);
             $table->string('value');
             $table->timestamps();
         });

@@ -8,7 +8,7 @@
           <h3 class="text-center text-info">Data</h3>
         </div>
         <div class="card-body">
-          <form id="cart-form" class="form" action="{{ route('cartform') }}" method="post">
+          <form id="cart-form" class="form" action="{{ url('cartstore') }}" method="post">
             @csrf
             @if(session('errors'))
               <div class="alert alert-danger alert-dismissible fade show" role="alert">

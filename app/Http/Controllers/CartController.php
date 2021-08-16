@@ -10,11 +10,20 @@ use Illuminate\Http\Request;
 class CartController extends Controller
 {
     public function cart(){
-        $cartdata = Cart::all();
-        return view('Cart.cart',compact('cartdata'),[
+        return view('Cart.cart',[
             'title' => "Cart"
         ]);
     }
+
+    public function cartdata(){
+        $model  = Cart::all();
+        $response = [
+            'message' => 'Data Berdasarkan ID',
+            'data'    => $model
+        ];
+        return response()->json($response, 200);
+    }
+
     public function cartform(){
         return view('Cart.cartform',[
             'title' => "Form"
@@ -32,11 +41,11 @@ class CartController extends Controller
         $data -> update($request->all());
         return redirect()->route('cart');
     }
-    public function cartdata(Request $request){
+    public function store(Request $request){
         $rules = [
             'username'              => 'required|min:3',
             'user_id'               => 'required|min:4',
-            'game'                  => 'required',
+            'game'                  => 'required|in:PUBG,Valorant,Genshin Impact',
             'value'                 => 'required'
         ];
 
@@ -46,6 +55,7 @@ class CartController extends Controller
             'user_id.required'      => 'User id harus diisi',
             'user_id.min'           => 'User id salah',
             'game.required'         => 'Game harus diisi',
+            'game.in'               => 'Penulisan Game Harus Sesuai Contoh',
             'value.required'        => 'Value harus diisi'
         ];
 
